@@ -53,7 +53,7 @@ class RequestAnswerForm(forms.Form):
         return set(usernames).intersection(available_usernames)
 
     def save(self):
-        usernames = self.cleaned_data['questionees']
+        usernames = clean_questionees()
         for questionee in User.objects.filter(username__in=usernames):
             Question.objects.create(
                 meta=self.qmeta, questionee=questionee,
